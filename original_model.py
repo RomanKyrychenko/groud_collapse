@@ -6,8 +6,8 @@ from sklearn.model_selection import KFold
 from sklearn.ensemble import StackingClassifier
 import joblib
 
-input_excel_file = r"input/ground collapse.xlsx"
-df = pd.read_excel(input_excel_file)
+input_file = r"input/train.csv"
+df = pd.read_csv(input_file)
 
 X = df.iloc[:, :7]  #
 y = df.iloc[:, 7]  #

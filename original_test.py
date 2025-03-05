@@ -4,8 +4,8 @@ import joblib
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import label_binarize
 
-test_excel_file = r"input/ground collapse.xlsx"
-test_df = pd.read_excel(test_excel_file)
+test_file = r"input/test.csv"
+test_df = pd.read_csv(test_file)
 
 model_filename = r'output/stacked_model.pkl'
 stacking_model = joblib.load(model_filename)
@@ -37,7 +37,7 @@ roc_curve_filename = r'output/roc_curve nerve.png'
 plt.savefig(roc_curve_filename)
 
 test_df['results'] = stacking_model.predict(X_test)
-result_excel_file = r'output/predicted_results.xlsx'
-test_df.to_excel(result_excel_file, index=False)
+result_excel_file = r'output/predicted_results.csv'
+test_df.to_csv(result_excel_file, index=False)
 
 print("saved2")
