@@ -1,0 +1,9 @@
+pandas~=2.2.3
+unstructured~=0.16.23
+python-dotenv~=1.0.1
+pydantic~=2.10.6
+langchain-openai~=0.3.7
+scikit-learn~=1.6.1
+plotnine~=0.14.5
+joblib~=1.4.2
+matplotlib~=3.10.1
