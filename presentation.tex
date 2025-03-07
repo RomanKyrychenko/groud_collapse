@@ -10,10 +10,9 @@
 % Fill in the following information: AUTHOR, TITLE, DATE
 
 \author[Roman Kyrychenko]{Roman Kyrychenko}
-\title[Analysis of reproducibility]{Analysis of reproducibility of study}
+\title[Analysis of Reproducibility]{Analysis of the Reproducibility of the Study}
 \date{date}%{\today}
 \institute{Faculty of Social Sciences, University of Helsinki}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % load packages
 % add packages if needed
@@ -58,6 +57,7 @@
 
 \usepackage[many]{tcolorbox}
 \usepackage{textcomp}
+\usepackage{hyperref}
 
 \newtcolorbox{titlebox}[1][]{
     width=\columnwidth,
@@ -359,19 +359,23 @@ I noted the following issues:
     \vspace{0.5cm} % Add some vertical space
 
     \textit{However, such a straightforward method (like dictionary-based text analysis) might be less appealing for publication compared to sophisticated techniques like Random Forests and Neural Networks.}
+
+    \includegraphics[width=14cm,height=4.5cm]{output/fake_model_roc_curve}
 \end{frame}
 
 
 \begin{frame}{\MakeUppercase{How results looks like if we do this study correctly}}
 
-    \includegraphics[width=14cm,height=4.5cm]{output/llm_ground_collapse_plot}
+    We won't sell it!
+
+    \includegraphics[width=14cm,height=4.5cm]{output/alternative_roc_curve}
 
 \end{frame}
 
 
 \begin{frame}{\MakeUppercase{Comparison of different models}}
 
-    \includegraphics[width=14cm,height=4.5cm]{output/llm_ground_collapse_plot}
+    \includegraphics[width=14cm,height=4.5cm]{output/roc_curve_comparison}
 
 \end{frame}
 
@@ -389,6 +393,26 @@ I noted the following issues:
     Weight 0.4 for Ground Collapse is rather outlier.
 
     \input{output/llm_agg_results}
+
+\end{frame}
+
+
+\begin{frame}{\MakeUppercase{Concluding Thoughts}}
+
+    \begin{enumerate}
+        \item The quality of reviewers' work in Q1 journals seems lacking; they had ample opportunities to detect these issues but did not.
+        \item The study is reproducible, but the practices of sharing code and data could be improved.
+    \end{enumerate}
+
+\end{frame}
+
+
+\begin{frame}{\MakeUppercase{Reproducibility of This Reproduction}}
+
+    \begin{enumerate}
+        \item GitHub repository with data, code for the study and analysis, presentation, and visualizations: \url{https://github.com/RomanKyrychenko/groud_collapse}
+        \item Docker image: \url{https://github.com/RomanKyrychenko/groud_collapse/blob/master/Dockerfile}
+    \end{enumerate}
 
 \end{frame}
 
