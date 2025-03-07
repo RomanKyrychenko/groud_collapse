@@ -56,6 +56,8 @@ Original data of the study available here: https://figshare.com/articles/dataset
   - numpy
   - OpenAI API (for LLM analysis)
 
+Full list of libraries is here: `requirements.txt` and `pyproject.toml`
+
 ## Installation
 
 1. Clone the repository:
@@ -64,7 +66,7 @@ git clone https://github.com/RomanKyrychenko/groud_collapse.git
 ```
 2. Navigate to the project directory:
 ```bash
-cd ground_collapse
+cd groud_collapse
 ```
 3. Install dependencies:
 ```bash
@@ -121,14 +123,14 @@ python main.py --help
   - [`alternative_test.py`](src/alternative_test.py): Evaluation of the alternative model
   - [`data_preproc.py`](src/data_preproc.py) & [`alternative_data_preproc.py`](src/alternative_data_preproc.py): Data preprocessing modules
   - [`llm.py`](src/llm.py) & [`llm_analysis.py`](src/llm_analysis.py): LLM-based analysis modules
-- `input/`: Input data files
-- `output/`: Generated model files, plots, and results
-  - [original_predicted_results.csv](output/original_predicted_results.csv)
-  - [alternative_predicted_results.csv](output/alternative_predicted_results.csv)
-  - [fake_model_results.csv](output/fake_model_results.csv)
-  - [roc_curve_comparison.png](output/roc_curve_comparison.png)
-  - [llm_agg_results.tex](output/llm_agg_results.tex)
-  - [llm_ground_collapse_plot.png](output/llm_ground_collapse_plot.png)
+- `input/`: Input data files, including test datasets and prompt files for LLM analysis
+- `output/`: Directory containing generated model files, plots, and results
+  - [`original_predicted_results.csv`](output/original_predicted_results.csv): CSV file with predictions from the original model
+  - [`alternative_predicted_results.csv`](output/alternative_predicted_results.csv): CSV file with predictions from the alternative model
+  - [`fake_model_results.csv`](output/fake_model_results.csv): CSV file with predictions from the baseline fake model
+  - [`roc_curve_comparison.png`](output/roc_curve_comparison.png): PNG image comparing ROC curves of different models
+  - [`llm_agg_results.tex`](output/llm_agg_results.tex): LaTeX file with aggregated results from LLM experiments
+  - [`llm_ground_collapse_plot.png`](output/llm_ground_collapse_plot.png): PNG image showing ground collapse analysis using LLMs
 
 ## Models
 
