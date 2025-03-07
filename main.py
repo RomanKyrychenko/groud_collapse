@@ -7,6 +7,47 @@ from src.alternative_test import AlternativeModelEvaluator
 from src.fake_model import FakeModel
 from src.llm import LLMAnalyzer
 from src.llm_analysis import LLMAnalysis
+import pandas as pd
+from plotnine import ggplot, aes, geom_path, labs, theme_minimal, scale_x_reverse, geom_segment, theme
+from sklearn.metrics import roc_curve
+
+
+def plot_roc_curves():
+
+    # Read the data
+    original_results = pd.read_csv('output/original_predicted_results.csv')
+    alternative_results = pd.read_csv('output/alternative_predicted_results.csv')
+    fake_results = pd.read_csv('output/fake_model_results.csv')
+
+    original_roc = pd.DataFrame(roc_curve(original_results['collapse '], original_results['results_proba'])).T
+    alternative_roc = pd.DataFrame(roc_curve(alternative_results['collapse '], alternative_results['results_proba'])).T
+    fake_roc = pd.DataFrame(roc_curve(fake_results['collapse _x'], fake_results['results'])).T
+
+    # Add a column to identify the model
+    original_roc['Model'] = 'Original Model'
+    alternative_roc['Model'] = 'Alternative Model (fixed dataset)'
+    fake_roc['Model'] = 'Fake Model (memorizing data)'
+
+    # Combine the data
+    combined_results = pd.concat([original_roc, alternative_roc, fake_roc], ignore_index=True)
+
+    combined_results.columns = ['split', 'False Positive Rate', 'True Positive Rate', 'Model']
+
+    combined_results = combined_results.sort_values(by=['Model', 'split'])
+
+    # Create the ROC plot
+    roc_plot = (
+        ggplot(combined_results, aes(x='False Positive Rate', y='True Positive Rate', color='Model', group='Model')) +
+        geom_path() +
+        geom_segment(aes(x=1, y=0, xend=0, yend=1), linetype='dashed', colour='black') +
+        scale_x_reverse() +
+        labs(title='ROC Curve Comparison', x='False Positive Rate', y='True Positive Rate') +
+        theme_minimal() +
+        theme(legend_position='bottom')
+    )
+
+    # Save the plot
+    roc_plot.save('output/roc_curve_comparison.png')
 
 
 if __name__ == "__main__":
@@ -17,7 +58,7 @@ if __name__ == "__main__":
                         help="Input file for data preprocessing.")
     parser.add_argument('--input_prompt_pdf', type=str, default="input/prompt.pdf",
                         help="Input file with LLM prompt.")
-    parser.add_argument('--llm_repetitions', type=int, default=10,
+    parser.add_argument('--llm_repetitions', type=int, default=20,
                         help='How many times run the same LLM for experiment')
     parser.add_argument('--llm_models', type=str, nargs='+',
                         default=["gpt-3.5-turbo", "gpt-4o", "gpt-4o-mini", "gpt-4", "gpt-4.5-preview"],
@@ -65,16 +106,20 @@ if __name__ == "__main__":
                                    result_excel_file=r'output/alternative_predicted_results.csv')
 
     fake_model = FakeModel(r"input/original_train.csv", r"input/original_test.csv")
-    print("ROC-AUC score:", fake_model.merge_and_evaluate())
+    print("ROC-AUC score of Fake model:", fake_model.merge_and_evaluate())
+    fake_model.plot_roc_curve("output/fake_model_roc_curve.png")
+    fake_model.save_predictions("output/fake_model_results.csv")
 
-    #llm_temperatures = [temp for temp in args.llm_temperatures if temp != 0] + [temp for temp in args.llm_temperatures if temp != 0] * (args.llm_repetitions - 1)
-    #llm_analyzer = LLMAnalyzer(args.llm_models, llm_temperatures, args.input_prompt_pdf, "output/llms.csv")
-    #llm_analyzer.analyze()
-    #llm_analyzer.save_results()
-#
-    #llm_analysis = LLMAnalysis(
-    #    input_file="output/llms.csv",
-    #    output_agg_file="output/llm_agg_results.tex",
-    #    output_plot_file="output/llm_ground_collapse_plot.png"
-    #)
-    #llm_analysis.run_analysis()
+    plot_roc_curves()
+
+    llm_temperatures = [temp for temp in args.llm_temperatures if temp != 0] + [temp for temp in args.llm_temperatures if temp != 0] * (args.llm_repetitions - 1)
+    llm_analyzer = LLMAnalyzer(args.llm_models, llm_temperatures, args.input_prompt_pdf, "output/llms.csv")
+    llm_analyzer.analyze()
+    llm_analyzer.save_results()
+
+    llm_analysis = LLMAnalysis(
+        input_file="output/llms.csv",
+        output_agg_file="output/llm_agg_results.tex",
+        output_plot_file="output/llm_ground_collapse_plot.png"
+    )
+    llm_analysis.run_analysis()

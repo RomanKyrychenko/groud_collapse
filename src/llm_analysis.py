@@ -25,8 +25,8 @@ class LLMAnalysis:
 
     def aggregate_results(self):
         self.agg_results = self.llm_results.groupby(['model'], as_index=False).agg({
-            'ground_collapse': ['mean', 'std', 'min', 'max'],
-            'ground_subsidence': ['mean', 'std', 'min', 'max']
+            'ground_collapse': ['mean', 'std', 'min', 'max', 'count'],
+            'ground_subsidence': ['mean', 'std', 'min', 'max', 'count']
         })
 
     def save_aggregated_results(self):
