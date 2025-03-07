@@ -7,7 +7,7 @@ class AlternativeModelEvaluator(ModelEvaluator):
         super().__init__(model_filename, test_file)
         self.scaler = joblib.load(scaler_filename)
         self.X_test = self.scaler.transform(self.X_test)
-        self.y_test = 1-self.y_test
+        #self.y_test = 1-self.y_test
 
 
 if __name__ == "__main__":
