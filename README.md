@@ -60,16 +60,35 @@ Original data of the study available here: https://figshare.com/articles/dataset
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/roman-kyrychenko-softteco/ground-deformation-analysis.git
+git clone https://github.com/RomanKyrychenko/groud_collapse.git
 ```
 2. Navigate to the project directory:
 ```bash
-cd ground-deformation-analysis
+cd ground_collapse
 ```
 3. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
+4. Add a `.env` file with your own `OPENAI_API_KEY`.
+
+## Docker
+
+To build and run the Docker container for this project, follow these steps:
+
+1. Build the Docker image:
+```bash
+docker build -t ground_collapse_analysis .
+```
+
+2. Run the Docker container:
+
+```bash
+docker run --rm -v $(pwd)/output:/app/output ground_collapse_analysis
+```
+
+This will execute the analysis and save the results in the output directory.
+
 
 ## Usage
 
@@ -95,12 +114,21 @@ python main.py --help
 ## Project Structure
 
 - `src/`: Source code for models and analysis
-  - `original_model.py`: Implementation of the original stacking model
-  - `alternative_model.py`: Alternative implementation with hyperparameter tuning
-  - `data_preproc.py` & `alternative_data_preproc.py`: Data preprocessing modules
-  - `llm.py` & `llm_analysis.py`: LLM-based analysis modules
+  - [`original_model.py`](src/original_model.py): Implementation of the original stacking model
+  - [`alternative_model.py`](src/alternative_model.py): Alternative implementation with hyperparameter tuning
+  - [`fake_model.py`](src/fake_model.py): Baseline model for memorizer
+  - [`original_test.py`](src/original_test.py): Evaluation of the original model
+  - [`alternative_test.py`](src/alternative_test.py): Evaluation of the alternative model
+  - [`data_preproc.py`](src/data_preproc.py) & [`alternative_data_preproc.py`](src/alternative_data_preproc.py): Data preprocessing modules
+  - [`llm.py`](src/llm.py) & [`llm_analysis.py`](src/llm_analysis.py): LLM-based analysis modules
 - `input/`: Input data files
 - `output/`: Generated model files, plots, and results
+  - [original_predicted_results.csv](output/original_predicted_results.csv)
+  - [alternative_predicted_results.csv](output/alternative_predicted_results.csv)
+  - [fake_model_results.csv](output/fake_model_results.csv)
+  - [roc_curve_comparison.png](output/roc_curve_comparison.png)
+  - [llm_agg_results.tex](output/llm_agg_results.tex)
+  - [llm_ground_collapse_plot.png](output/llm_ground_collapse_plot.png)
 
 ## Models
 

@@ -269,7 +269,7 @@ I noted the following issues:
 \begin{columns}[c]
     \begin{column}{.5\textwidth}
         1. Factual error on the graphs:
-        \includegraphics[width=7cm,height=4.5cm]{images/wrong_roc}
+        \includegraphics[width=5cm,height=4.5cm]{images/wrong_roc}
     \end{column}
     \begin{column}{.5\textwidth}
         2. Inconsistency between text and graph:
@@ -318,16 +318,6 @@ I noted the following issues:
 
 \begin{frame}{\MakeUppercase{More detailed look at data}}
 
-    \begin{enumerate}
-        \item During hyperparameter tuning, I noted that increasing parameters (making the model greedy) leads to better AUC on test data. Usually, greedy models lead to overfitting and failed test results.
-        \item LLM models give me 0.4:0.6 weights even on gibberish input.
-    \end{enumerate}
-
-\end{frame}
-
-
-\begin{frame}{\MakeUppercase{More detailed look at data}}
-
     \textbf{Data check:}
     \begin{itemize}
         \item Noted a lot of similar rows in the data file.
@@ -345,37 +335,47 @@ I noted the following issues:
 \end{frame}
 
 \begin{frame}{\MakeUppercase{My alternative aggregation model}}
-    \begin{itemize}
-        \itemsep1em
-        \item For this dataset, complex modeling is unnecessary due to extensive data duplication.
-        \item A simple dictionary-based approach suffices: match test cases with the training data.
-        \item If a test case isn't found in the training data, predict 0, the more frequent class.
-    \end{itemize}
+    \begin{columns}[c]
+        \begin{column}{.7\textwidth}
+            \begin{itemize}
+                \itemsep1em
+                \item For this dataset, complex modeling is unnecessary due to extensive data duplication.
+                \item A simple dictionary-based approach suffices: match test cases with the training data.
+                \item If a test case isn't found in the training data, predict 0, the more frequent class.
+            \end{itemize}
 
-    \vspace{0.5cm} % Add some vertical space
-
-    \textbf{Results:} This approach achieves an AUC of 91\%, surpassing the authors' model stack by 2\%.
-
-    \vspace{0.5cm} % Add some vertical space
-
-    \textit{However, such a straightforward method (like dictionary-based text analysis) might be less appealing for publication compared to sophisticated techniques like Random Forests and Neural Networks.}
-
-    \includegraphics[width=14cm,height=4.5cm]{output/fake_model_roc_curve}
+            \textbf{Results:} This approach achieves an AUC of 91\%, surpassing the authors' model stack by 2\%.
+        \end{column}
+        \begin{column}{.3\textwidth}
+            \includegraphics[width=4cm,height=4cm]{output/fake_model_roc_curve}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 
 \begin{frame}{\MakeUppercase{How results looks like if we do this study correctly}}
 
-    We won't sell it!
-
-    \includegraphics[width=14cm,height=4.5cm]{output/alternative_roc_curve}
+\begin{columns}[c]
+    \begin{column}{.5\textwidth}
+        We won't sell it! Or maybe...
+    \end{column}
+    \begin{column}{.5\textwidth}
+        \includegraphics[width=4.5cm,height=4.5cm]{output/alternative_roc_curve}
+    \end{column}
+\end{columns}
 
 \end{frame}
 
 
 \begin{frame}{\MakeUppercase{Comparison of different models}}
-
-    \includegraphics[width=14cm,height=4.5cm]{output/roc_curve_comparison}
+\begin{columns}[c]
+    \begin{column}{.5\textwidth}
+        Probably with more time for hyperparameter tuning it's possible to reach the level of broken models.
+    \end{column}
+    \begin{column}{.5\textwidth}
+        \includegraphics[width=4.5cm,height=4.5cm]{output/roc_curve_comparison}
+    \end{column}
+\end{columns}
 
 \end{frame}
 
@@ -399,20 +399,22 @@ I noted the following issues:
 
 \begin{frame}{\MakeUppercase{Concluding Thoughts}}
 
-    \begin{enumerate}
-        \item The quality of reviewers' work in Q1 journals seems lacking; they had ample opportunities to detect these issues but did not.
+    \begin{itemize}
+        \item The quality of reviewers' work in 1Q journals seems lacking; they had ample opportunities to detect these issues but did not.
         \item The study is reproducible, but the practices of sharing code and data could be improved.
-    \end{enumerate}
+    \end{itemize}
 
 \end{frame}
 
 
+
 \begin{frame}{\MakeUppercase{Reproducibility of This Reproduction}}
 
-    \begin{enumerate}
-        \item GitHub repository with data, code for the study and analysis, presentation, and visualizations: \url{https://github.com/RomanKyrychenko/groud_collapse}
-        \item Docker image: \url{https://github.com/RomanKyrychenko/groud_collapse/blob/master/Dockerfile}
-    \end{enumerate}
+    \begin{itemize}
+        \itemsep1em
+        \item GitHub repository with data, code for the study and analysis, presentation, and visualizations: \\ \href{https://github.com/RomanKyrychenko/groud_collapse}{\texttt{https://github.com/RomanKyrychenko/groud\_collapse}}
+        \item Docker image: \\ \href{https://github.com/RomanKyrychenko/groud_collapse/blob/master/Dockerfile}{\texttt{https://github.com/RomanKyrychenko/groud\_collapse/blob/master/Dockerfile}}
+    \end{itemize}
 
 \end{frame}
 

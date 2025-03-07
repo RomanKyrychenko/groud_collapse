@@ -56,7 +56,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run different models and analyses.")
     parser.add_argument('--input_file', type=str, default="input/ground collapse.xlsx",
                         help="Input file for data preprocessing.")
-    parser.add_argument('--input_prompt_pdf', type=str, default="input/prompt.pdf",
+    parser.add_argument('--input_prompt_pdf', type=str, default="input/description.pdf",
                         help="Input file with LLM prompt.")
     parser.add_argument('--llm_repetitions', type=int, default=20,
                         help='How many times run the same LLM for experiment')
