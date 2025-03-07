@@ -4,6 +4,7 @@ version = "0.0.1"
 author = "Roman Kyrychenko <roman.kyrychenko@helsinki.fi>"
 dependencies = [
     "pandas~=2.2.3",
+    "openpyxl~=3.1.5",
     "unstructured~=0.16.23",
     "python-dotenv~=1.0.1",
     "pydantic~=2.10.6",
